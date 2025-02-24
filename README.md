@@ -1,8 +1,12 @@
 # closest-neighbor
-Playing around with some big data algorithms and techniques.
-In this project, I will attemp to find the closest neighbor of each node in the dataset using signature similarities and the LSH algorithm.
-The nodes in these dataasets represent documents. We want to find the document similarity between these documents.
+In this project, I have implemented the LSH and MinHash algorithms and compared their quality and execution times where the objective is to calculate the nearest neighbors of a document X included in a 
+collection of documents.
+The assessment of similarity of the other documents from document X will be done in two main ways:
+* The Jaccard-Similarity 𝐽𝑎𝑐𝑆𝑖𝑚(𝑋, 𝑌) metric of document X, where Y are the rest of the documents in the dataset.
+* The signature similarity 𝑆𝑖𝑔𝑆𝑖𝑚(𝑋, 𝑌) of document X, where Y are the rest of the documents in the dataset.
+  
 ## Datasets used: Bags-of-words text collection
+The nodes in these datasets represent documents. We want to find the similarity between these documents.
 For each text dataset in the collection: 
 * D is the number of documents, 
 * W is the number of words in the vocabulary, and 
@@ -40,7 +44,7 @@ print("Jaccard Similarity: {}".format(inters/un))
 ```
 
 ###  MySigSim
-This routine calculates the signature similarity between two documents. This is done by comparing the lines of the Signature Matrix of each document and diving the union with the number of perm
+This routine calculates the signature similarity between two documents. This is done by comparing the lines of the Signature Matrix of each document and dividing their union with the number of permutations.
 
 ###  MyMinHash
 This routine implements a MinHash Algorith. Min Hash uses hash functions to generate a "signature" for each set. Each hash function provides a compressed, unique representation of the set.
@@ -53,8 +57,13 @@ def create_random_hash_function(p=2**33-355, m=2**32-1):
 ```
 The signature matrix is created with dimentions K(number of permutations) x N (number of documents)
 
-## The "Calculation of closest neighbor" routines
+## The "Calculation of closest neighbor per document" routines
 * Brute-Force Method
+  * calculateNumNeighborsWithSIGSIM, calculateNumNeighborsWithJSIM and 
+    calculateAvgSim.
+* LSH Method
+  * myLSH, calculateNumNeighborsWithLSHS_SigSim and
+    calculateNumNeighborsWithLSHS_JSim
 
 ### Execution times for each algorith used
 
@@ -64,3 +73,8 @@ The signature matrix is created with dimentions K(number of permutations) x N (n
 | Signature Sim | 0.0006268024444580078 | 0.0006077289581298828 |
 
 ## Usage
+Execute main.py
+![image](https://github.com/user-attachments/assets/1b24c112-0c36-4f0f-8497-999b06c56c27)
+![image](https://github.com/user-attachments/assets/7751d586-8dc5-48bf-9473-ca030598707d)
+
+
